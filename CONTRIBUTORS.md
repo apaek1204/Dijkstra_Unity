@@ -1,0 +1,1 @@
+The project must include a CONTRIBUTORS.md file that details the group members and their individual contributions to the project.
