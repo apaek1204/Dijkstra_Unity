@@ -12,8 +12,8 @@ public class Manager : MonoBehaviour {
 
 
 	public GameObject Hero;
-
-
+	public GameObject Fruit;
+	public string[] mapData;
 	public float tileSize
 	{
 		get { return tilePrefabs[0].GetComponent<SpriteRenderer>().sprite.bounds.size.x; }
@@ -30,7 +30,9 @@ public class Manager : MonoBehaviour {
 
 	private void CreateLevel()
 	{
-		string[] mapData = ReadLevelText();
+		 mapData = ReadLevelText();
+
+
 
 
 		int mapX = mapData[0].ToCharArray().Length;
@@ -47,11 +49,12 @@ public class Manager : MonoBehaviour {
 
 
 		Vector3 heroStart = new Vector3 (worldStart.x, worldStart.y, -1.0f);
-
-
 		Hero.transform.position = heroStart;
 
-		//Debug.Log (newTiles[0]);
+		Vector3 fruitStart = new Vector3 (worldStart.x+(tileSize * 2), worldStart.y - (tileSize * 2), -1.0f);
+		Fruit.transform.position = fruitStart;
+
+	
 
 
 		for(int y = 0; y < mapY; y++)
@@ -79,6 +82,11 @@ public class Manager : MonoBehaviour {
 				
 		}
 
+
+
+
+
+
 		//cameraMovement.SetLimits(new Vector3(maxTile.x + tileSize, maxTile.y - tileSize));
 	}
 
@@ -86,7 +94,7 @@ public class Manager : MonoBehaviour {
 	{
 		int tileIndex = int.Parse(tileType); 
 
-		Debug.Log (tileType);
+		//Debug.Log (tileType);
 
 
 
@@ -107,7 +115,7 @@ public class Manager : MonoBehaviour {
 
 
 
-		Debug.Log ("here");
+		//Debug.Log ("here");
 
 		//Debug.Log (bindData);
 
@@ -115,8 +123,8 @@ public class Manager : MonoBehaviour {
 
 
 
-		Debug.Log (data);
-		Debug.Log ("data");
+		///Debug.Log (data);
+		//Debug.Log ("data");
 
 
 		return data.Split('-');

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using ConsoleApplication1;
 
 public class movement : MonoBehaviour {
 
@@ -11,8 +12,11 @@ public class movement : MonoBehaviour {
 
 	public Vector3 applePosition;
 
+	private string[] map;
 
 
+	private int currentX;
+	private int currentY;
 
 	public float tileSize
 	{
@@ -24,20 +28,31 @@ public class movement : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+
+		currentX = 0;
+		currentY = 0;
+		map = GameObject.Find ("Manager").GetComponent<Manager> ().mapData;
 		time = 0;
 		threshold = 1.0f;
-
-
-
-	applePosition = apple.transform.position;
+		applePosition = apple.transform.position;
 
 
 
 	
 	}
+
+
+
+
+	void moveRight(){
+
+		Vector3 moveX = new Vector3( tileSize ,0.0f , 0);
+	}
 	
 	// Update is called once per frame
 	void Update () {
+
+		map = GameObject.Find ("Manager").GetComponent<Manager> ().mapData;
 		time += Time.deltaTime;
 
 
@@ -51,6 +66,10 @@ public class movement : MonoBehaviour {
 		Vector3 moveY = new Vector3( 0.0f ,tileSize , 0);
 
 
+	
+
+
+
 
 
 		//newPos= curr + direction * tileSize
@@ -62,26 +81,36 @@ public class movement : MonoBehaviour {
 
 		if (time > threshold) {
 			time = 0.0f;
+			Debug.Log (currentX);
+			Debug.Log (currentY);
+			Pathfind hello = new Pathfind();
+			int result = hello.AStar (map.Length, map.Length, currentX, currentY, 2, 2, map);
+			//int result = Pathfind.AStar (map.Length, map.Length, currentX, currentY, 2, 2, map);
 
-			if (this.transform.position.x < applePositon.x) {
+			Debug.Log (result);
 
+
+
+			if (result == 0) {
+
+					currentX+=1;
 
 				this.transform.Translate (moveX);
 
 
-			} else if (this.transform.position.x > applePositon.x) {
-
+			} else if (result == 2) {
+					currentX-=1;
 
 				this.transform.Translate (-moveX);
-			} else if (this.transform.position.y < applePositon.y) {
+			} else if (result == 3) {
 
-
+					currentY+=1;
 				this.transform.Translate (moveY);
 
 
-			} else if (this.transform.position.y > applePositon.y) {
+			} else if (result == 1) {
 
-
+					currentY-=1;
 				this.transform.Translate (-moveY);
 			}
 	
