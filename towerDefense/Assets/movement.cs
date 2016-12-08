@@ -38,6 +38,8 @@ public class movement : MonoBehaviour {
 
 
 
+
+
 	
 	}
 
@@ -53,9 +55,22 @@ public class movement : MonoBehaviour {
 	void Update () {
 
 		map = GameObject.Find ("Manager").GetComponent<Manager> ().mapData;
+
+
+
+		if (time == 0) {
+
+			Pathfind hello = new Pathfind();
+			int result = hello.AStarAgain (map.Length, map.Length, currentX, currentY, 2, 2, map);
+
+			Debug.Log ("result");
+
+			Debug.Log (result);
+
+		}
+
+
 		time += Time.deltaTime;
-
-
 		Vector3 applePositon = apple.transform.position;
 
 
@@ -84,7 +99,10 @@ public class movement : MonoBehaviour {
 			Debug.Log (currentX);
 			Debug.Log (currentY);
 			Pathfind hello = new Pathfind();
-			int result = hello.AStar (map.Length, map.Length, currentX, currentY, 2, 2, map);
+			int result = Random.Range (0, 3);//hello.AStar (map.Length, map.Length, currentX, currentY, 2, 2, map);
+
+
+
 			//int result = Pathfind.AStar (map.Length, map.Length, currentX, currentY, 2, 2, map);
 
 			Debug.Log (result);

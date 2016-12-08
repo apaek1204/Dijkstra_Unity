@@ -267,6 +267,206 @@ namespace ConsoleApplication1
 				return 2;
         }
 
+
+
+
+		public int AStarAgain(int row, int col, int s_row, int s_col, int d_row, int d_col, string[] input_grid)
+		{
+			int i, j, num_tiles, tile_num;
+			int mrow, mcol;
+			int text_line_num = 0; // Keep track which line the program is working with
+			string[] split;
+			List<string> outputLines = new List<string>();
+			int rstart_row, rstart_col;
+			int rend_row, rend_col;
+			string tile_name;
+			var tiles = new Dictionary<string, int>();
+
+			/*
+            // Get the Path of the Input0.txt
+			string[] text = System.IO.File.ReadAllLines(@"..\..\Paths\Input" + numTest + ".txt");
+			num_tiles = int.Parse(text[text_line_num]);
+			text_line_num++;
+
+
+			if (fileOutput && !File.Exists(path))
+				sw = File.CreateText(path);
+			else 
+				sw = new StreamWriter(path);
+
+			sw.AutoFlush = true;
+			*/
+
+			/*
+			// Increment through to get which types of tiles there are
+			for (i = 0; i < num_tiles; i++)
+			{
+				split = text[text_line_num].Split(' ');
+				text_line_num++;
+				tile_name = split[0];
+				tile_num = int.Parse(split[1]);
+				tiles[tile_name] = tile_num;
+			}
+			*/
+
+			// Split to figure out how many rows and columns there are
+			/*
+			split = text[text_line_num].Split(' ');
+            text_line_num++;
+			mrow = int.Parse(split[0]);
+            mcol = int.Parse(split[1]);
+			*/
+
+			mrow = row;
+			mcol = col;
+
+			// Read in the entire grid to tile_grid
+			string[] tile_grid = input_grid;
+
+			for (i = 0; i < mrow; i++)
+			{
+				//  split = text[text_line_num].Split(' ');
+				text_line_num++;
+				for (j = 0; j < mcol; j++)
+				{
+					//tile_grid[i, j] = split[j];
+				}
+			}
+
+			// Determine the starting and ending tiles
+			/*
+			split = text[text_line_num].Split(' ');
+            text_line_num++;
+            rstart_row = int.Parse(split[0]);
+            rstart_col = int.Parse(split[1]);
+            split = text[text_line_num].Split(' ');
+            text_line_num++;
+            rend_row = int.Parse(split[0]);
+            rend_col = int.Parse(split[1]);
+			*/
+			rstart_row = s_row;
+			rstart_col = s_col;
+			rend_row = d_row;
+			rend_col = d_col;
+			int costs = 0;
+			Node v;
+
+			// Create the frontier and marked for A*
+			PriorityQueue<Node> frontier = new PriorityQueue<Node>();
+			var marked = new Dictionary<Tuple, Tuple>();
+
+			// Create and push the first Node
+			v = new Node(0, Tuple.Create(rend_row, rend_col), Tuple.Create(rend_row, rend_col));
+			frontier.Enqueue(v);
+
+			// Create the destination Tuple
+			Tuple destination = Tuple.Create(rend_row, rend_col);
+			// Implement A* ♥
+			while (frontier.Count() != 0)
+			{
+				v = frontier.Dequeue();
+
+				// If we have already visited this Node, continue
+				if (marked.ContainsKey(v.target))
+					continue;
+				//Debug.Log ("here is the error:");
+				marked[v.target] = v.source;
+				costs = v.cost; // Set equal to the cost it took to get to this point
+
+				// Break if we have reached the destination
+				if (v.target.Item1 == rstart_row && v.target.Item2 == rstart_col)
+					break;
+
+				// Add in the Nodes that are next to our current Node
+				if ((v.target.Item1 + 1) < mrow)
+				{
+
+					char [] curr_row= tile_grid[v.target.Item1 + 1].ToCharArray();
+
+					Node m = new Node(v.cost + curr_row[v.target.Item2] + priority(v.target, destination), Tuple.Create(v.target.Item1 + 1, v.target.Item2)
+						, Tuple.Create(v.target.Item1, v.target.Item2));
+					frontier.Enqueue(m);
+				}
+				if ((v.target.Item1 - 1) >= 0)
+				{
+					Debug.Log ("helpus");
+
+					char [] curr_row= tile_grid[v.target.Item1 - 1].ToCharArray();
+					Debug.Log ("helpus");
+
+					Node m = new Node(v.cost + curr_row[v.target.Item2] + priority(v.target, destination), Tuple.Create(v.target.Item1 - 1, v.target.Item2)
+						, Tuple.Create(v.target.Item1, v.target.Item2));
+					frontier.Enqueue(m);
+				}
+				if ((v.target.Item2 + 1) < mcol)
+				{
+
+
+					char [] curr_row= tile_grid[v.target.Item1].ToCharArray();
+					Node m = new Node(v.cost + curr_row[v.target.Item2 + 1] + priority(v.target, destination), Tuple.Create(v.target.Item1, v.target.Item2 + 1)
+						, Tuple.Create(v.target.Item1, v.target.Item2));
+					frontier.Enqueue(m);
+				}
+				if ((v.target.Item2 - 1) >= 0)
+				{
+
+					char [] curr_row= tile_grid[v.target.Item1].ToCharArray();
+					Node m = new Node(v.cost + curr_row[v.target.Item2 - 1] + priority(v.target, destination), Tuple.Create(v.target.Item1, v.target.Item2 - 1)
+						, Tuple.Create(v.target.Item1, v.target.Item2));
+					frontier.Enqueue(m);
+				}
+			}
+
+			// Traverse through marked to calculate the proper cost
+			Tuple curr_cost = v.target;
+			/*
+            while (curr_cost.Item1 != rend_row || curr_cost.Item2 != rend_col)
+            {
+				if (!marked.ContainsKey (curr_cost))
+					Debug.Log ("error");
+                curr_cost = marked[curr_cost];
+                costs -= priority(curr_cost, destination);
+            }
+			*/
+			// If output, print out to the console
+
+
+           // if (output)
+            //{
+                Console.WriteLine(costs);
+                Tuple curr = v.target;
+                while (curr.Item1 != rend_row || curr.Item2 != rend_col)
+                {
+
+				//Debug.Log("help");
+
+				Debug.Log (curr.Item1);
+				Debug.Log(curr.Item2);
+
+				if (!marked.ContainsKey (curr_cost)
+                curr = marked[curr];
+
+
+                }
+                Console.WriteLine("{0} {1}", curr.Item1, curr.Item2);
+                Console.WriteLine("End");
+                Console.ReadLine();
+           // }
+           
+
+			return 0;
+			/*
+			//Tuple curr = marked [v.target];
+			if (curr.Item1 > v.target.Item1)
+				return 1;
+			else if (curr.Item1 < v.target.Item1)
+				return 3;
+			else if (curr.Item2 > v.target.Item2)
+				return 0;
+			else
+				return 2;
+			*/
+		}
         // Heuristic Function to A* ♥
         static int priority(Tuple current, Tuple destination)
         {
