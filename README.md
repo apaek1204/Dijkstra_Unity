@@ -1,7 +1,9 @@
 Final Project for CSE30331
 ---------------------------
 
-To open the program, the user can simply download the executable ?????? and open it.
+To play the game, the user can simply visit [here](http://www3.nd.edu/~ncarroll/RedPandaWeb/) on their web browser (not supported on mobile).
+
+To re-start the game, simply refresh the page.
 
 The entire Unity project, the directory towerDefense, can also be downloaded to open and run the project in Unity.
 
@@ -9,7 +11,7 @@ Click on the different environment tiles to switch between grass, mountain, and 
 
 A glitch happens when you click on the panda as it’s moving, or on the panda when it arrives on the apple. This will cause the panda to deviate from the ‘correct’ path, but it eventually calculates the path again.
 
-The panda may sometimes go off the grid (literally) as well. Then the panda is not able to find the correct path.
+The panda may sometimes go off the grid (literally) as well. Then the panda is then not able to find the correct path.
 
 To see how the C# script with the algorithms connects with the user interface made in Unity, go to towerDefense/Assets/Dijkstras.cs
 
