@@ -9,13 +9,11 @@ Click on the different environment tiles to switch between grass, mountain, and 
 
 A glitch happens when you click on the panda as it’s moving, or on the panda when it arrives on the apple. This will cause the panda to deviate from the ‘correct’ path, but it eventually calculates the path again.
 
-To look for the C# script with A* and Dijkstra’s algorithm, go to ConsoleApplication2/ConsoleApplication2/Dijkstras.cs
-
-The executable of Dijkstras.cs can be found in ConsoleApplication2/ConsoleApplication2/bin/Debug/ConsoleApplication2.exe
+The panda may sometimes go off the grid (literally) as well. Then the panda is not able to find the correct path.
 
 To see how the C# script with the algorithms connects with the user interface made in Unity, go to towerDefense/Assets/Dijkstras.cs
 
-(The files may be named Dijkstras, but they include implementation of A*)
+(The file may be named Dijkstras, but it includes implementation of A*)
 
 Benchmarking was done with Powershell on a Windows machine. These Powershell scripts can be found under the directory powershellscripts. We then compared the performance between A* and Dijkstra’s.
 
