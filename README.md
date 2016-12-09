@@ -17,7 +17,7 @@ To see how the C# script with the algorithms connects with the user interface ma
 
 (The files may be named Dijkstras, but they include implementation of A*)
 
-Benchmarking was done with Powershell on a Windows machine. This Powershell script can be found in ???????. We then compared the performance between A* and Dijkstra’s.
+Benchmarking was done with Powershell on a Windows machine. These Powershell scripts can be found under the directory powershellscripts. We then compared the performance between A* and Dijkstra’s.
 
 Memory usage, execution time, and correctness of result were all checked on a Windows machine.
 
