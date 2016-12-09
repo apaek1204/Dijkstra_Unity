@@ -47,7 +47,9 @@
   <ItemGroup>
      <Compile Include="Assets\Dijkstras.cs" />
      <Compile Include="Assets\Manager.cs" />
+     <Compile Include="Assets\funCameraZoom.cs" />
      <Compile Include="Assets\game.cs" />
+     <Compile Include="Assets\grass.cs" />
      <Compile Include="Assets\movement.cs" />
      <Compile Include="Assets\tuple.cs" />
      <None Include="Assets\Resources\Level.txt" />

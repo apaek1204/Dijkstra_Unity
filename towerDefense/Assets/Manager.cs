@@ -26,6 +26,10 @@ public class Manager : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		CreateLevel();
+
+
+
+
 	}
 
 	private void CreateLevel()
@@ -129,4 +133,51 @@ public class Manager : MonoBehaviour {
 
 		return data.Split('-');
 	}
+
+
+
+	public void updateMap(int currentX, int currentY, Vector3 pos)
+	{
+
+		Debug.Log (currentX);
+
+		char current = mapData [currentY] [currentX];
+		//Debug.Log (currenY);
+		//Debug.Log (currenY);
+		current++;
+		Debug.Log (current);
+		if (current > '2')
+			current = '0';
+
+
+		string entry = "";
+		entry += current;
+		Vector3 worldStart = Camera.main.ScreenToWorldPoint(new Vector3(0, Screen.height, 0));
+
+		string updateLine = "";
+		for (int i = 0; i < mapData [currentY].ToCharArray ().Length; i++) {
+			if (i == currentX)
+			updateLine += current;
+			else
+				updateLine += mapData [currentY] [i];
+
+		}
+		mapData [currentY] = updateLine;
+
+
+
+		int tileIndex = int.Parse(entry);
+		GameObject newTile = Instantiate(tilePrefabs[tileIndex]);
+		newTile.transform.position = pos;
+		//PlaceTile(entry, currentX, currentY, worldStart);
+		Debug.Log (currentX);
+
+		//current = mapData [currentY] [currentY];
+		Debug.Log (current);
+
+
+		Hero.GetComponent<movement> ().updateQueue();
+	}
+
+
 }
